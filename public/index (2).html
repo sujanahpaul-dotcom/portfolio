@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sujanah Paul — Full Stack Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0d0d;
+      --surface: #141414;
+      --card:    #1c1c1c;
+      --border:  rgba(255,255,255,0.07);
+      --text:    #f0ede8;
+      --muted:   #6e6a64;
+      --gold:    #d4a853;
+      --gold2:   #f0c97a;
+      --teal:    #4ecdc4;
+      --red:     #e05252;
+      --ff:      'Fraunces', Georgia, serif;
+      --fs:      'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--fs); overflow-x: hidden; }
+
+    /* noise */
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:999;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.1rem 3rem;
+      background:rgba(13,13,13,0.85); backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo { font-family:var(--ff); font-size:1.15rem; font-weight:700; font-style:italic; color:var(--gold); letter-spacing:-0.01em; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { font-size:0.72rem; color:var(--muted); text-decoration:none; letter-spacing:0.14em; text-transform:uppercase; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-btn { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid rgba(212,168,83,0.3); border-radius:2rem; color:var(--gold); text-decoration:none; transition:all 0.2s; }
+    .nav-btn:hover { background:var(--gold); color:#0d0d0d; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height:100vh; position:relative; z-index:1;
+      display:flex; align-items:center;
+      padding:8rem 3rem 4rem;
+      overflow:hidden;
+    }
+    .hero-bg-text {
+      position:absolute; right:-2rem; top:50%; transform:translateY(-55%);
+      font-family:var(--ff); font-size:clamp(10rem,22vw,20rem);
+      font-weight:900; font-style:italic;
+      color:rgba(212,168,83,0.04); line-height:1;
+      pointer-events:none; user-select:none; white-space:nowrap;
+    }
+    .hero-inner { max-width:1100px; width:100%; margin:0 auto; position:relative; }
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:0.75rem;
+      font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold);
+      margin-bottom:2rem; animation:fadeUp 0.7s ease both;
+    }
+    .hero-eyebrow span { display:block; width:32px; height:1px; background:var(--gold); }
+    h1.hero-name {
+      font-family:var(--ff);
+      font-size:clamp(3.5rem,9vw,8rem);
+      font-weight:900; line-height:0.92; letter-spacing:-0.03em;
+      animation:fadeUp 0.7s 0.1s ease both;
+    }
+    h1.hero-name em { font-style:italic; color:var(--gold); display:block; }
+    .hero-role {
+      font-size:0.78rem; letter-spacing:0.16em; text-transform:uppercase;
+      color:var(--muted); margin-top:1.5rem;
+      animation:fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-desc {
+      max-width:480px; font-size:1rem; line-height:1.8;
+      color:rgba(240,237,232,0.65); margin-top:1.25rem;
+      animation:fadeUp 0.7s 0.3s ease both;
+    }
+    .hero-cta { display:flex; gap:1rem; margin-top:2.5rem; flex-wrap:wrap; animation:fadeUp 0.7s 0.4s ease both; }
+    .btn {
+      display:inline-flex; align-items:center; gap:0.5rem;
+      padding:0.85rem 1.75rem; border-radius:0.4rem;
+      font-family:var(--fs); font-size:0.8rem; font-weight:500;
+      letter-spacing:0.06em; text-decoration:none; transition:all 0.22s; cursor:pointer; border:none;
+    }
+    .btn-gold { background:var(--gold); color:#0d0d0d; }
+    .btn-gold:hover { background:var(--gold2); transform:translateY(-2px); }
+    .btn-ghost { border:1px solid var(--border); color:var(--text); background:transparent; }
+    .btn-ghost:hover { background:var(--card); border-color:rgba(255,255,255,0.15); }
+
+    .hero-stats {
+      display:flex; gap:3rem; margin-top:4rem;
+      animation:fadeUp 0.7s 0.5s ease both;
+    }
+    .stat-item { }
+    .stat-num { font-family:var(--ff); font-size:2.2rem; font-weight:900; color:var(--gold); line-height:1; }
+    .stat-label { font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:0.2rem; }
+
+    /* ── TICKER ── */
+    .ticker-wrap { overflow:hidden; padding:0.65rem 0; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .ticker { display:flex; gap:2.5rem; width:max-content; animation:ticker 32s linear infinite; }
+    .ticker-item { font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); white-space:nowrap; display:flex; align-items:center; gap:0.6rem; }
+    .ticker-item .dot { width:4px; height:4px; border-radius:50%; background:var(--gold); flex-shrink:0; }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── SHARED ── */
+    .section-wrap { max-width:1100px; margin:0 auto; padding:7rem 3rem; position:relative; z-index:1; }
+    .section-label {
+      display:inline-flex; align-items:center; gap:0.6rem;
+      font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);
+      margin-bottom:1rem;
+    }
+    .section-label::before { content:''; display:block; width:20px; height:1px; background:var(--gold); }
+    .section-title { font-family:var(--ff); font-size:clamp(2rem,4vw,3.2rem); font-weight:900; line-height:1.05; letter-spacing:-0.02em; }
+
+    /* ── ABOUT ── */
+    #about .section-wrap { display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:start; }
+    .about-text { font-size:0.95rem; line-height:1.9; color:rgba(240,237,232,0.7); margin-top:1.25rem; }
+    .about-text + .about-text { margin-top:1rem; }
+    .about-list { margin-top:1.75rem; list-style:none; }
+    .about-list li { display:flex; align-items:center; gap:0.75rem; padding:0.65rem 0; border-bottom:1px solid var(--border); font-size:0.82rem; color:rgba(240,237,232,0.7); }
+    .about-list li::before { content:'→'; color:var(--gold); font-size:0.75rem; flex-shrink:0; }
+    .about-right { padding-top:2.5rem; }
+    .proficiency-label { display:flex; justify-content:space-between; font-size:0.72rem; letter-spacing:0.06em; margin-bottom:0.4rem; color:rgba(240,237,232,0.8); }
+    .bar-wrap { height:2px; background:var(--border); border-radius:2px; overflow:hidden; margin-bottom:1.25rem; }
+    .bar-fill { height:100%; background:linear-gradient(90deg, var(--gold), var(--gold2)); border-radius:2px; transform:scaleX(0); transform-origin:left; transition:transform 1.1s cubic-bezier(0.16,1,0.3,1); }
+    .bar-fill.on { transform:scaleX(1); }
+
+    /* ── SKILLS ── */
+    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:3rem; }
+    .skill-card {
+      background:var(--card); border:1px solid var(--border); border-radius:0.75rem;
+      padding:1.6rem; transition:all 0.25s; position:relative; overflow:hidden;
+    }
+    .skill-card::before { content:attr(data-n); position:absolute; right:1rem; top:0.5rem; font-family:var(--ff); font-size:4rem; font-weight:900; color:rgba(212,168,83,0.05); line-height:1; pointer-events:none; }
+    .skill-card:hover { border-color:rgba(212,168,83,0.25); transform:translateY(-4px); background:#212121; }
+    .skill-icon { font-size:1.5rem; margin-bottom:0.8rem; }
+    .skill-name { font-size:0.9rem; font-weight:500; margin-bottom:0.3rem; }
+    .skill-desc { font-size:0.78rem; color:var(--muted); line-height:1.6; }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.85rem; }
+    .tag { font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; padding:0.2rem 0.55rem; border-radius:0.2rem; background:rgba(255,255,255,0.04); color:var(--muted); border:1px solid var(--border); }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:3rem; }
+    .project-card { background:var(--card); border:1px solid var(--border); border-radius:0.75rem; overflow:hidden; transition:all 0.25s; }
+    .project-card:hover { border-color:rgba(212,168,83,0.2); transform:translateY(-5px); }
+    .project-thumb { height:160px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; position:relative; border-bottom:1px solid var(--border); }
+    .project-num { position:absolute; bottom:0.75rem; right:1rem; font-family:var(--ff); font-size:0.62rem; color:var(--muted); letter-spacing:0.1em; }
+    .project-body { padding:1.5rem; }
+    .project-title { font-family:var(--ff); font-size:1.05rem; font-weight:700; margin-bottom:0.5rem; }
+    .project-desc { font-size:0.82rem; color:rgba(240,237,232,0.6); line-height:1.7; }
+    .project-stack { display:flex; gap:0.35rem; flex-wrap:wrap; margin-top:1rem; }
+    .project-link { display:inline-flex; align-items:center; gap:0.4rem; margin-top:1.1rem; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal); text-decoration:none; }
+    .project-link:hover { color:#7deee8; }
+
+    /* ── WORKFLOW SECTION ── */
+    #workflow { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .workflow-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin-top:3rem; }
+    .wf-step { padding:1.5rem 1.25rem; border-right:1px solid var(--border); position:relative; }
+    .wf-step:last-child { border-right:none; }
+    .wf-num { font-family:var(--ff); font-size:2rem; font-weight:900; color:rgba(212,168,83,0.2); line-height:1; margin-bottom:0.75rem; }
+    .wf-title { font-size:0.82rem; font-weight:500; margin-bottom:0.4rem; color:var(--text); }
+    .wf-desc { font-size:0.72rem; color:var(--muted); line-height:1.6; }
+    .wf-arrow { position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--gold); font-size:0.9rem; z-index:2; }
+    .wf-step:last-child .wf-arrow { display:none; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; margin-top:3rem; }
+    .contact-intro { font-size:0.92rem; color:rgba(240,237,232,0.65); line-height:1.8; }
+    .contact-email { display:block; margin:1.5rem 0; font-family:var(--ff); font-size:clamp(1.2rem,2.5vw,1.8rem); font-weight:700; font-style:italic; color:var(--text); text-decoration:none; border-bottom:1px solid var(--gold); padding-bottom:0.25rem; transition:color 0.2s; }
+    .contact-email:hover { color:var(--gold); }
+    .social-row { display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:1.5rem; }
+    .social-btn { display:inline-flex; align-items:center; gap:0.4rem; padding:0.55rem 1.1rem; border-radius:0.3rem; border:1px solid var(--border); color:var(--muted); font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; transition:all 0.2s; }
+    .social-btn:hover { background:var(--card); color:var(--text); border-color:rgba(255,255,255,0.15); }
+    .contact-form { background:var(--card); border:1px solid var(--border); border-radius:0.75rem; padding:2rem; }
+    .form-group { margin-bottom:1.2rem; }
+    .form-label { display:block; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:0.45rem; }
+    .form-input, .form-textarea { width:100%; padding:0.75rem 1rem; background:var(--surface); border:1px solid var(--border); border-radius:0.4rem; color:var(--text); font-family:var(--fs); font-size:0.88rem; outline:none; transition:border-color 0.2s; resize:vertical; }
+    .form-input:focus, .form-textarea:focus { border-color:rgba(212,168,83,0.4); }
+    .form-textarea { min-height:110px; }
+    #form-status { margin-top:0.85rem; font-size:0.75rem; letter-spacing:0.04em; display:none; }
+
+    /* ── FOOTER ── */
+    footer { border-top:1px solid var(--border); padding:2rem 3rem; text-align:center; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); position:relative; z-index:1; }
+    footer a { color:var(--gold); text-decoration:none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.on { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      nav { padding:1rem 1.5rem; }
+      .nav-links { display:none; }
+      #hero { padding:7rem 1.5rem 3rem; }
+      .hero-stats { gap:2rem; }
+      #about .section-wrap { grid-template-columns:1fr; gap:3rem; }
+      .section-wrap { padding:5rem 1.5rem; }
+      .skills-grid { grid-template-columns:1fr; }
+      .projects-grid { grid-template-columns:1fr; }
+      .workflow-steps { grid-template-columns:1fr; }
+      .wf-step { border-right:none; border-bottom:1px solid var(--border); }
+      .wf-arrow { display:none; }
+      .contact-grid { grid-template-columns:1fr; gap:3rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="mesh" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 10% 10%,rgba(212,168,83,0.05) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 90% 90%,rgba(78,205,196,0.04) 0%,transparent 60%)"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Sujanah Paul</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://github.com/your-username" target="_blank" class="nav-btn">GitHub ↗</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">SP</div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span></span> Available for work &nbsp;·&nbsp; Bangalore, IN</div>
+    <h1 class="hero-name">
+      Sujanah
+      <em>Paul.</em>
+    </h1>
+    <p class="hero-role">Full Stack Developer &nbsp;·&nbsp; UI Engineer</p>
+    <p class="hero-desc">I craft end-to-end web experiences — from pixel-perfect interfaces to battle-tested APIs, cloud databases, and CI/CD pipelines that never sleep.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-gold">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Years exp.</div></div>
+      <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">Projects shipped</div></div>
+      <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Tech stacks</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="section-label">001 — About</div>
+      <h2 class="section-title">Who I am.</h2>
+      <p class="about-text">I'm a full-stack developer based in Bangalore who loves connecting beautiful frontends to powerful backends. I care deeply about clean code, great user experiences, and systems that work reliably at scale.</p>
+      <p class="about-text">From React interfaces to Node.js APIs, MySQL schemas to CI/CD pipelines on GitHub — I own the entire development workflow shown in the diagram above.</p>
+      <ul class="about-list">
+        <li>HTML, CSS, JavaScript — Frontend</li>
+        <li>Node.js, Python, PHP — Backend</li>
+        <li>MySQL, TiDB Cloud — Database</li>
+        <li>Git, GitHub, CI/CD, Vercel — DevOps</li>
+      </ul>
+    </div>
+    <div class="about-right reveal" style="transition-delay:.15s">
+      <div class="section-label">Proficiency</div>
+      <div id="skill-bars"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="section-label">002 — Skills</div>
+      <h2 class="section-title">The Stack.</h2>
+    </div>
+    <div class="skills-grid" id="skills-grid"></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="section-label">003 — Projects</div>
+      <h2 class="section-title">What I've Built.</h2>
+    </div>
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="section-label">004 — Dev Workflow</div>
+      <h2 class="section-title">How I Ship Code.</h2>
+      <p style="font-size:.88rem;color:var(--muted);margin-top:.75rem;line-height:1.7">Following the Modern Web Development Workflow — from local code to live production.</p>
+    </div>
+    <div class="workflow-steps reveal" style="transition-delay:.1s" id="wf-steps"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="reveal">
+      <div class="section-label">005 — Contact</div>
+      <h2 class="section-title">Let's build something.</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal" style="transition-delay:.05s">
+        <p class="contact-intro">Have a project in mind, want to review my code, or just want to say hi? I'd love to hear from you.</p>
+        <a href="mailto:Sujanahpaul69@gmail.com" class="contact-email">Sujanahpaul69@gmail.com</a>
+        <div class="social-row">
+          <a href="https://github.com/your-username" target="_blank" class="social-btn">⭐ GitHub</a>
+          <a href="https://linkedin.com" target="_blank" class="social-btn">💼 LinkedIn</a>
+          <a href="#" class="social-btn">📄 Resume</a>
+        </div>
+        <div style="margin-top:2rem;padding:1.25rem;background:var(--card);border:1px solid var(--border);border-radius:.6rem">
+          <p style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem">Mentor review endpoint</p>
+          <code style="font-size:.75rem;color:var(--muted)">GET /api/contacts</code>
+          <p style="font-size:.72rem;color:var(--muted);margin-top:.4rem;line-height:1.6">All contact form submissions are stored in TiDB Cloud MySQL and accessible via the backend API.</p>
+        </div>
+      </div>
+      <div class="contact-form reveal" style="transition-delay:.15s">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input id="f-name" class="form-input" type="text" placeholder="Jane Smith"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input id="f-email" class="form-input" type="email" placeholder="jane@example.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea id="f-msg" class="form-textarea" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button class="btn btn-gold" onclick="submitForm()" style="width:100%;justify-content:center">Send Message →</button>
+        <div id="form-status"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed &amp; developed by Sujanah Paul &nbsp;·&nbsp; Bangalore, IN &nbsp;·&nbsp;
+    <a href="https://github.com/your-username/portfolio" target="_blank">Source on GitHub ↗</a>
+  </p>
+</footer>
+
+<script>
+/* TICKER */
+const techStack = ['HTML5','CSS3','JavaScript','Node.js','Python','PHP','MySQL','TiDB Cloud','Git','GitHub','CI/CD','Express.js','REST API','Vercel','Docker','GitLab','Bitbucket','Domain/DNS'];
+const t = document.getElementById('ticker');
+t.innerHTML = [...techStack,...techStack].map(s=>`<span class="ticker-item"><span class="dot"></span>${s}</span>`).join('');
+
+/* SKILL BARS */
+const bars = [
+  {name:'Frontend (HTML/CSS/JS)', pct:90},
+  {name:'Backend (Node.js/Python)', pct:82},
+  {name:'Database (MySQL/TiDB)', pct:76},
+  {name:'Git & GitHub', pct:88},
+  {name:'CI/CD & Deployment', pct:72},
+];
+const barsEl = document.getElementById('skill-bars');
+bars.forEach(b => {
+  barsEl.innerHTML += `
+    <div>
+      <div class="proficiency-label"><span>${b.name}</span><span>${b.pct}%</span></div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:${b.pct}%"></div></div>
+    </div>`;
+});
+
+/* SKILLS */
+const skills = [
+  {icon:'⚡',name:'Frontend',desc:'Responsive, accessible UIs',tags:['HTML5','CSS3','JavaScript','React','TypeScript'],n:'01'},
+  {icon:'🔧',name:'Backend', desc:'Scalable APIs & server logic',tags:['Node.js','Python','PHP','Express','REST'],n:'02'},
+  {icon:'🗄️',name:'Database',desc:'Schemas, queries & cloud DBs',tags:['MySQL','TiDB Cloud','PostgreSQL'],n:'03'},
+  {icon:'🚀',name:'CI / CD', desc:'Automated pipelines & deploys',tags:['GitHub Actions','CircleCI','Codeship'],n:'04'},
+  {icon:'🌐',name:'Hosting', desc:'Domains, DNS & cloud infra',tags:['Vercel','AWS','Nginx','Domain/DNS'],n:'05'},
+  {icon:'🔀',name:'Version Control',desc:'Collaborative code management',tags:['Git','GitHub','GitLab','Bitbucket'],n:'06'},
+];
+const sg = document.getElementById('skills-grid');
+skills.forEach((s,i) => {
+  sg.innerHTML += `<div class="skill-card reveal" data-n="${s.n}" style="transition-delay:${i*0.07}s">
+    <div class="skill-icon">${s.icon}</div>
+    <div class="skill-name">${s.name}</div>
+    <p class="skill-desc">${s.desc}</p>
+    <div class="skill-tags">${s.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+  </div>`;
+});
+
+/* PROJECTS */
+const projects = [
+  {title:'TaskFlow — Project Manager',desc:'Full-stack task management with real-time updates, team collaboration, and TiDB Cloud persistence.',stack:['React','Node.js','TiDB','Socket.io'],bg:'rgba(212,168,83,0.07)',icon:'📋',num:'001',url:'https://github.com/your-username/taskflow'},
+  {title:'ShopNest — E-Commerce',    desc:'Production-ready shop with cart, payments, and admin dashboard. MySQL + PHP backend.',stack:['HTML/CSS','JS','PHP','MySQL'],bg:'rgba(78,205,196,0.07)',icon:'🛒',num:'002',url:'https://github.com/your-username/shopnest'},
+  {title:'DevLog — Blog CMS',        desc:'Markdown-driven developer blog with REST API, JWT auth, and server-side rendering.',stack:['React','Express','MongoDB','JWT'],bg:'rgba(224,82,82,0.07)',icon:'✍️',num:'003',url:'https://github.com/your-username/devlog'},
+  {title:'PulseMetrics — Analytics', desc:'Lightweight analytics dashboard with event tracking, time-series charts, and CSV exports.',stack:['Python','FastAPI','PostgreSQL','Chart.js'],bg:'rgba(130,100,212,0.07)',icon:'📊',num:'004',url:'https://github.com/your-username/pulsemetrics'},
+];
+const pg = document.getElementById('projects-grid');
+projects.forEach((p,i) => {
+  pg.innerHTML += `<div class="project-card reveal" style="transition-delay:${i*0.08}s">
+    <div class="project-thumb" style="background:${p.bg}">${p.icon}<span class="project-num">${p.num}</span></div>
+    <div class="project-body">
+      <div class="project-title">${p.title}</div>
+      <p class="project-desc">${p.desc}</p>
+      <div class="project-stack">${p.stack.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <a href="${p.url}" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+  </div>`;
+});
+
+/* WORKFLOW STEPS */
+const wfSteps = [
+  {num:'01',title:'Local Git Repo',    desc:'Write HTML/CSS/JS frontend, Node.js backend & connect MySQL/TiDB locally.'},
+  {num:'02',title:'GitHub',            desc:'git push sends code to GitHub / GitLab / Bitbucket for version control.'},
+  {num:'03',title:'CI / CD',           desc:'GitHub Actions auto-runs tests, linting & builds on every push.'},
+  {num:'04',title:'Hosting',           desc:'Auto-deploys to Vercel. Website code + DB live under your domain/DNS.'},
+  {num:'05',title:'Web Browser',       desc:'Users open the domain — frontend loads, backend runs, DB responds.'},
+];
+const wf = document.getElementById('wf-steps');
+wfSteps.forEach(s => {
+  wf.innerHTML += `<div class="wf-step">
+    <div class="wf-num">${s.num}</div>
+    <div class="wf-title">${s.title}</div>
+    <p class="wf-desc">${s.desc}</p>
+    <span class="wf-arrow">→</span>
+  </div>`;
+});
+
+/* SCROLL REVEAL */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      e.target.querySelectorAll('.bar-fill').forEach(f => f.classList.add('on'));
+    }
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* CONTACT FORM → /api/contact → TiDB Cloud */
+async function submitForm() {
+  const name    = document.getElementById('f-name').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const msg     = document.getElementById('f-msg').value.trim();
+  const status  = document.getElementById('form-status');
+  if (!name || !email || !msg) {
+    status.style.display='block'; status.style.color='var(--red)';
+    status.textContent='→ Please fill in all fields.'; return;
+  }
+  status.style.display='block'; status.style.color='var(--muted)';
+  status.textContent='→ Sending...';
+  try {
+    const res = await fetch('/api/contact', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, email, message: msg})
+    });
+    if (res.ok) {
+      status.style.color='var(--teal)';
+      status.textContent="→ Message sent! I'll get back to you soon.";
+      document.getElementById('f-name').value='';
+      document.getElementById('f-email').value='';
+      document.getElementById('f-msg').value='';
+    } else { throw new Error(); }
+  } catch {
+    status.style.color='var(--red)';
+    status.textContent='→ Could not send — email me at Sujanahpaul69@gmail.com';
+  }
+}
+</script>
+</body>
+</html>
