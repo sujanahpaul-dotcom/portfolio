@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/sujanahpaul-dotcom/portfolio#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mysql2": "^3.20.0"
   }
 }

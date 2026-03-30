@@ -64,9 +64,8 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-app.get('*', (_, res) =>
+app.get('/{*path}', (_, res) =>
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 );
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀  Server on http://localhost:${PORT}`));
