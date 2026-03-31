@@ -1,5 +1,0 @@
-DB_HOST=gateway01.ap-southeast-1.prod.aws.tidbcloud.com
-DB_PORT=4000
-DB_NAME=test
-DB_USER=your-4LaheYGKTnPg27q.root
-DB_PASSWORD=your-QNpwWEjLPwmmGV8T
